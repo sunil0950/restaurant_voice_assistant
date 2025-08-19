@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS restaurant_db;
+USE restaurant_db;
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    items_json JSON NOT NULL,
+    total_cost DECIMAL(10,2) NOT NULL,
+    email VARCHAR(255),
+    transcript TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

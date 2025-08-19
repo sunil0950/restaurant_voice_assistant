@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunrise Bistro — Voice Agent</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Animated background -->
+  <div class="bg-wrap">
+    <div class="bg-layer bg1"></div>
+    <div class="bg-layer bg2"></div>
+    <div class="bg-layer bg3"></div>
+    <div id="confetti"></div>
+  </div>
+
+  <main class="container">
+    <header class="hero">
+      <h1>Sunrise Bistro</h1>
+      <p class="sub">Tap <b>Start Voice Call</b> to talk to our assistant.</p>
+    </header>
+
+    <section class="content">
+      <div class="panel">
+        <h2>Today's Menu</h2>
+        <ul class="menu-list" id="menuList">
+          {% for m in menu %}
+            <li>
+              <span class="item">{{ m.name }}</span>
+              <span class="price">₹{{ m.price }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <div class="controls">
+          <button id="startBtn" class="btn btn-cta">Start Voice Call</button>
+          <button id="confirmBtn" class="btn btn-confirm" disabled>Confirm Order</button>
+          <input id="emailInput" class="email" type="email"
+                 placeholder="Enter your email to receive confirmation" />
+        </div>
+
+        <!-- Optional: animated mic / listening cue -->
+        <div id="listeningIndicator" class="listening-indicator" style="display:none;">
+          🎤 Listening...
+        </div>
+
+        <div class="status-wrap">
+          <div class="status" id="status">Ready.</div>
+        </div>
+
+        <div class="transcript">
+          <h3>Transcript</h3>
+          <pre id="transcript"></pre>
+        </div>
+
+        <div class="order">
+          <h3>Detected Order</h3>
+          <pre id="orderBox"></pre>
+          <div class="total" id="totalBox"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <small>Best in Chrome desktop. Voice uses your browser’s speech engine.</small>
+    </footer>
+  </main>
+
+  <script>
+    // Server-provided menu array for client-side use
+    const MENU = {{ menu | tojson | safe }};
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="/static/script.js"></script>
+</body>
+</html>
